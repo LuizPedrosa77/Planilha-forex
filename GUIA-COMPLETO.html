@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia: Planilha Forex no Docker via Git</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --yellow: #d29922;
+    --red: #f85149;
+    --purple: #bc8cff;
+    --orange: #ffa657;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+  
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a2332 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  .hero h1 span { color: var(--blue); }
+  .hero p { color: var(--text-muted); font-size: 1rem; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; color: var(--text-muted); margin: 4px; }
+  .badge.green { border-color: var(--green); color: var(--green); }
+  .badge.blue { border-color: var(--blue); color: var(--blue); }
+  .badges { margin-top: 16px; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px; }
+
+  .flow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .flow h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 20px; }
+  .flow-steps { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
+  .flow-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .flow-box .icon { display: block; font-size: 1.2rem; margin-bottom: 2px; }
+  .flow-arrow { color: var(--text-muted); font-size: 1.2rem; }
+
+  .phase {
+    margin-bottom: 48px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-num {
+    background: var(--blue);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.85rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .phase-title { font-size: 1.15rem; font-weight: 700; }
+  .phase-subtitle { font-size: 0.82rem; color: var(--text-muted); }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .step-num {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+  .step-title { font-weight: 600; font-size: 0.9rem; }
+  .step-body { padding: 14px 16px; }
+  .step-body p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px; }
+
+  .cmd {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.83rem;
+    color: var(--green);
+    margin: 8px 0;
+    position: relative;
+    overflow-x: auto;
+  }
+  .cmd .prompt { color: var(--text-muted); }
+  .cmd .comment { color: var(--text-muted); font-style: italic; }
+
+  .file-tree {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.83rem;
+    margin: 8px 0;
+  }
+  .file-tree .folder { color: var(--blue); }
+  .file-tree .file { color: var(--text); }
+  .file-tree .desc { color: var(--text-muted); }
+
+  .tip {
+    background: rgba(88, 166, 255, 0.08);
+    border: 1px solid rgba(88, 166, 255, 0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: #a5c8ff;
+    margin: 10px 0;
+  }
+  .tip strong { color: var(--blue); }
+
+  .warn {
+    background: rgba(210, 153, 34, 0.08);
+    border: 1px solid rgba(210, 153, 34, 0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: #e6c07b;
+    margin: 10px 0;
+  }
+
+  .update-flow {
+    background: var(--surface);
+    border: 1px solid var(--green);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 40px;
+  }
+  .update-flow h3 { color: var(--green); margin-bottom: 16px; font-size: 1rem; }
+  .update-steps { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .update-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    font-family: 'Consolas', monospace;
+    color: var(--green);
+  }
+
+  .glossary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 40px;
+  }
+  .glossary h3 { margin-bottom: 16px; color: var(--purple); }
+  .glossary-item { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.87rem; }
+  .glossary-term { font-family: 'Consolas', monospace; color: var(--orange); min-width: 120px; font-size: 0.82rem; }
+  .glossary-def { color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🚀 Planilha Forex Online com <span>Git + Docker</span></h1>
+  <p>Passo a passo completo: do zero até rodando no Portainer</p>
+  <div class="badges">
+    <span class="badge green">✓ Windows</span>
+    <span class="badge blue">✓ GitHub Público</span>
+    <span class="badge">Docker + Portainer</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- FLUXO VISUAL -->
+  <div class="flow">
+    <h2>Como tudo se conecta</h2>
+    <div class="flow-steps">
+      <div class="flow-box"><span class="icon">💻</span>Seu PC<br><small style="color:#8b949e">edita o HTML</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box"><span class="icon">🐙</span>GitHub<br><small style="color:#8b949e">armazena o código</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box"><span class="icon">🐳</span>Portainer<br><small style="color:#8b949e">faz o build</small></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box"><span class="icon">🌐</span>Online<br><small style="color:#8b949e">planilha no ar</small></div>
+    </div>
+  </div>
+
+  <!-- FASE 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-title">Instalar o Git no Windows</div>
+        <div class="phase-subtitle">Só precisa fazer uma vez</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">1</div><div class="step-title">Baixar e instalar o Git</div></div>
+      <div class="step-body">
+        <p>Acesse <strong style="color:#58a6ff">git-scm.com</strong> → clique em <em>"Download for Windows"</em> → instale com todas as opções padrão (pode clicar Next em tudo).</p>
+        <div class="tip"><strong>💡 Dica:</strong> Na etapa "Default editor", selecione <strong>Visual Studio Code</strong> se já tiver instalado.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">2</div><div class="step-title">Configurar seu nome e e-mail no Git</div></div>
+      <div class="step-body">
+        <p>Abra o <strong>Git Bash</strong> (aparece no menu iniciar após instalar) e execute:</p>
+        <div class="cmd">
+          <span class="comment"># Substitua pelos seus dados do GitHub</span><br>
+          git config --global user.name "Seu Nome"<br>
+          git config --global user.email "seu@email.com"
+        </div>
+        <p>Isso identifica quem fez cada commit. Só precisa fazer uma vez.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-title">Criar o repositório no GitHub</div>
+        <div class="phase-subtitle">Onde o código vai ficar na nuvem</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">3</div><div class="step-title">Criar o repositório</div></div>
+      <div class="step-body">
+        <p>No GitHub, clique em <strong>"New repository"</strong> (botão verde no canto superior direito ou em github.com/new) e configure:</p>
+        <div class="cmd" style="color: var(--text);">
+          Nome: <span style="color:#3fb950">planilha-forex</span><br>
+          Visibilidade: <span style="color:#3fb950">Public</span><br>
+          ☑ Add a README file: <span style="color:#3fb950">marcar essa opção</span><br>
+          <span class="comment"># O resto pode deixar padrão</span>
+        </div>
+        <p>Após criar, copie a URL do repositório. Ela será algo como:<br>
+        <code style="color:#58a6ff">https://github.com/seu-usuario/planilha-forex.git</code></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-title">Montar a pasta do projeto no PC</div>
+        <div class="phase-subtitle">Os arquivos que você vai enviar pro GitHub</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">4</div><div class="step-title">Criar a pasta e colocar os arquivos</div></div>
+      <div class="step-body">
+        <p>Crie uma pasta em qualquer lugar do PC, por exemplo <code>C:\projetos\planilha-forex\</code>, e coloque esses arquivos dentro:</p>
+        <div class="file-tree">
+          <span class="folder">📁 planilha-forex/</span><br>
+          &nbsp;&nbsp;<span class="file">├── Planilha_code_pro.html</span> &nbsp;<span class="desc">← a planilha</span><br>
+          &nbsp;&nbsp;<span class="file">├── Dockerfile</span> &nbsp;<span class="desc">← diz ao Docker como empacotar</span><br>
+          &nbsp;&nbsp;<span class="file">├── docker-compose.yml</span> &nbsp;<span class="desc">← configuração do container</span><br>
+          &nbsp;&nbsp;<span class="file">└── .gitignore</span> &nbsp;<span class="desc">← arquivos que o Git deve ignorar</span>
+        </div>
+        <div class="tip"><strong>💡</strong> Os arquivos Dockerfile, docker-compose.yml e .gitignore foram gerados e estão disponíveis para download junto com este guia.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 4 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div>
+        <div class="phase-title">Enviar os arquivos para o GitHub (primeiro push)</div>
+        <div class="phase-subtitle">Conectar a pasta local ao repositório remoto</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">5</div><div class="step-title">Abrir o Git Bash dentro da pasta do projeto</div></div>
+      <div class="step-body">
+        <p>Clique com o botão direito dentro da pasta <code>planilha-forex</code> no Windows Explorer e selecione <strong>"Git Bash Here"</strong>. Um terminal vai abrir já posicionado na pasta correta.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">6</div><div class="step-title">Inicializar e enviar o código</div></div>
+      <div class="step-body">
+        <p>Execute os comandos abaixo um por um no Git Bash:</p>
+        <div class="cmd">
+          <span class="comment"># 1. Inicia o git nesta pasta</span><br>
+          git init<br><br>
+          <span class="comment"># 2. Conecta ao seu repositório no GitHub</span><br>
+          git remote add origin https://github.com/SEU-USUARIO/planilha-forex.git<br><br>
+          <span class="comment"># 3. Seleciona todos os arquivos para o commit</span><br>
+          git add .<br><br>
+          <span class="comment"># 4. Cria o primeiro "save" com uma mensagem</span><br>
+          git commit -m "primeiro commit: planilha forex"<br><br>
+          <span class="comment"># 5. Envia para o GitHub</span><br>
+          git push -u origin main
+        </div>
+        <div class="warn">⚠️ Na primeira vez, o Git vai pedir login do GitHub. Use seu usuário e senha (ou token de acesso pessoal se tiver autenticação em 2 fatores ativa).</div>
+        <p>Após isso, abra o GitHub no navegador e confirme que os arquivos apareceram no repositório.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 5 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div>
+        <div class="phase-title">Deploy no Portainer</div>
+        <div class="phase-subtitle">Fazer o container subir a partir do GitHub</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">7</div><div class="step-title">Criar uma nova Stack no Portainer</div></div>
+      <div class="step-body">
+        <p>No Portainer, acesse: <strong>Stacks → Add Stack</strong></p>
+        <div class="cmd" style="color: var(--text);">
+          Nome da stack: <span style="color:#3fb950">planilha-forex</span><br>
+          Build method: <span style="color:#3fb950">Repository</span><br><br>
+          Repository URL: <span style="color:#58a6ff">https://github.com/SEU-USUARIO/planilha-forex</span><br>
+          Repository reference: <span style="color:#58a6ff">refs/heads/main</span><br>
+          Compose path: <span style="color:#58a6ff">docker-compose.yml</span>
+        </div>
+        <div class="tip"><strong>💡 Auto update:</strong> Você pode ativar o <strong>"Enable automatic updates"</strong> e definir um intervalo. Assim, sempre que você der push no GitHub, o Portainer atualiza o container automaticamente!</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num">8</div><div class="step-title">Clicar em Deploy the Stack</div></div>
+      <div class="step-body">
+        <p>Clique no botão <strong>"Deploy the Stack"</strong> no final da página. O Portainer vai:</p>
+        <div class="cmd" style="color: var(--text);">
+          1. Clonar o repositório do GitHub<br>
+          2. Ler o Dockerfile e o docker-compose.yml<br>
+          3. Construir a imagem com o Nginx + seu HTML<br>
+          4. Subir o container na porta 8080
+        </div>
+        <p>Após alguns segundos, acesse: <code style="color:#3fb950">http://IP-DA-SUA-VPS:8080</code></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUXO DE ATUALIZAÇÃO -->
+  <div class="update-flow">
+    <h3>🔄 Como atualizar a planilha no futuro</h3>
+    <p style="font-size: 0.87rem; color: #8b949e; margin-bottom: 16px;">Após a configuração inicial, atualizar é simples. Basta editar o HTML no PC e executar 3 comandos:</p>
+    <div class="update-steps">
+      <div class="update-box">edita o HTML</div>
+      <span style="color:#8b949e">→</span>
+      <div class="update-box">git add .</div>
+      <span style="color:#8b949e">→</span>
+      <div class="update-box">git commit -m "descrição"</div>
+      <span style="color:#8b949e">→</span>
+      <div class="update-box">git push</div>
+      <span style="color:#8b949e">→</span>
+      <div class="update-box" style="color:#58a6ff">Portainer redesploya ✓</div>
+    </div>
+    <p style="font-size: 0.82rem; color: #8b949e; margin-top: 12px;">Se ativar o <strong style="color:#3fb950">auto update</strong> no Portainer, o redesploy acontece automaticamente após o push!</p>
+  </div>
+
+  <!-- GLOSSÁRIO -->
+  <div class="glossary">
+    <h3>📖 Glossário rápido</h3>
+    <div class="glossary-item"><span class="glossary-term">git init</span><span class="glossary-def">Começa a monitorar uma pasta com o Git</span></div>
+    <div class="glossary-item"><span class="glossary-term">git add .</span><span class="glossary-def">Seleciona todos os arquivos modificados para o próximo commit</span></div>
+    <div class="glossary-item"><span class="glossary-term">git commit</span><span class="glossary-def">Registra um "save" do estado atual do projeto com uma mensagem</span></div>
+    <div class="glossary-item"><span class="glossary-term">git push</span><span class="glossary-def">Envia os commits locais para o GitHub</span></div>
+    <div class="glossary-item"><span class="glossary-term">git pull</span><span class="glossary-def">Baixa as mudanças do GitHub para o PC local</span></div>
+    <div class="glossary-item"><span class="glossary-term">remote</span><span class="glossary-def">O repositório remoto (no caso, o GitHub)</span></div>
+    <div class="glossary-item"><span class="glossary-term">origin</span><span class="glossary-def">Apelido padrão para o repositório remoto principal</span></div>
+    <div class="glossary-item"><span class="glossary-term">main</span><span class="glossary-def">Nome da branch (linha de desenvolvimento) principal</span></div>
+    <div class="glossary-item"><span class="glossary-term">Stack</span><span class="glossary-def">No Portainer, é um grupo de containers definidos por um docker-compose.yml</span></div>
+    <div class="glossary-item"><span class="glossary-term">Dockerfile</span><span class="glossary-def">Receita que diz ao Docker como construir a imagem do container</span></div>
+  </div>
+
+</div>
+</body>
+</html>
