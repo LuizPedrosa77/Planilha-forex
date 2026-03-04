@@ -2,8 +2,9 @@ version: "3.8"
 
 services:
   planilha-forex:
-    build: .
-    container_name: planilha-forex
+    image: nginx:alpine
     ports:
       - "8080:80"
+    volumes:
+      - ./Planilha_code_pro.html:/usr/share/nginx/html/index.html:ro
     restart: unless-stopped
