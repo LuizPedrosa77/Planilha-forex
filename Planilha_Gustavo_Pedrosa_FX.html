@@ -449,7 +449,7 @@
 .lo-btn { width: 100%; padding: 13px 0; border: none; border-radius: 10px; background: #00d395; color: #000; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 8px; }
 .lo-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .lo-error { background: rgba(255,77,77,0.1); border: 1px solid rgba(255,77,77,0.3); border-radius: 8px; padding: 10px 14px; color: #ff4d4d; font-size: 13px; margin-bottom: 12px; }
-.lo-sync { position: fixed; top: 16px; right: 16px; background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 700; color: #00d395; z-index: 500; display: flex; align-items: center; gap: 8px; }
+.lo-sync { background: transparent; border: none; border-radius: 10px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #00d395; display: flex; align-items: center; gap: 6px; }
 .lo-sync.syncing { color: #f59e0b; }
 .lo-sync.error { color: #ff4d4d; }
 </style>
@@ -486,10 +486,7 @@
   </div>
 </div>
 
-<!-- SYNC STATUS -->
-<div class="lo-sync hidden" id="syncStatus">
-  <span id="syncDot">●</span> <span id="syncText">Sincronizado</span>
-</div>
+
 
 
 <div class="topbar">
@@ -498,9 +495,11 @@
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <div class="save-indicator hidden" id="saveIndicator">✓ Salvo</div>
+    <div class="lo-sync hidden" id="syncStatus"><span id="syncDot">●</span> <span id="syncText">Sincronizado</span></div>
     <button class="btn btn-primary btn-sm" onclick="openChartPanel()">📈 Evolução da Conta</button>
     <button class="btn btn-ghost btn-sm" onclick="openExportModal()">⬇ Exportar CSV</button>
     <button class="btn btn-primary btn-sm" onclick="openMT5Modal()">📥 Importar MT5</button>
+    <button class="btn btn-ghost btn-sm" onclick="loLogout()" id="logoutBtn" style="display:none;">Sair</button>
     <input type="file" id="importMT5File" accept=".html,.htm" style="display:none" onchange="importMT5(event)">
   </div>
 </div>
@@ -857,13 +856,13 @@ function renderMain() {
     + '<div class="ms-item"><div class="ms-label">Trades</div><div class="ms-val">' + monthTrades.length + '</div></div>'
     + (function() {
         const meta = acc.meta || 0;
-        if (!meta) return '<div class="ms-item"><div class="ms-label">Meta Mensal</div><div style="display:flex;align-items:center;gap:6px;"><input type="number" placeholder="Definir meta $" step="100" value="" oninput="updateMeta(parseFloat(this.value)||0)" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:4px 6px;font-size:12px;font-weight:700;color:var(--primary);background:#0d1117;"></div></div>';
+        if (!meta) return '<div class="ms-item"><div class="ms-label">Meta Mensal</div><div style="display:flex;align-items:center;gap:6px;"><input type="number" placeholder="Definir meta $" step="100" value="" onchange="updateMeta(parseFloat(this.value)||0)" onclick="event.stopPropagation()" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:4px 6px;font-size:12px;font-weight:700;color:var(--primary);background:#0d1117;"></div></div>';
         const pct = Math.min(100, Math.max(0, (monthPnl / meta * 100)));
         const pctStr = pct.toFixed(0);
         const barColor = pct >= 100 ? '#00d395' : pct >= 50 ? '#f59e0b' : '#ff4d4d';
         return '<div class="ms-item" style="min-width:180px;"><div class="ms-label" style="display:flex;justify-content:space-between;"><span>Meta: $' + fmtNum(meta) + '</span><span style="color:' + barColor + ';">' + pctStr + '%</span></div>'
           + '<div style="background:var(--gray-200);border-radius:6px;height:6px;margin-top:4px;overflow:hidden;"><div style="width:' + pctStr + '%;background:' + barColor + ';height:100%;border-radius:6px;transition:width 0.3s;"></div></div>'
-          + '<div style="margin-top:3px;"><input type="number" placeholder="Alterar meta" step="100" value="' + meta + '" oninput="updateMeta(parseFloat(this.value)||0)" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:3px 6px;font-size:11px;color:var(--primary);background:#0d1117;"></div>'
+          + '<div style="margin-top:3px;"><input type="number" placeholder="Alterar meta" step="100" value="' + meta + '" onchange="updateMeta(parseFloat(this.value)||0)" onclick="event.stopPropagation()" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:3px 6px;font-size:11px;color:var(--primary);background:#0d1117;"></div>'
           + '</div>';
       })()
     + '<div class="ms-item"><div class="ms-label">Wins</div><div class="ms-val pos" id="ms-wins">' + monthWins + '</div></div>'
@@ -2201,6 +2200,7 @@ async function loSubmit() {
     localStorage.setItem('gpfx_token', gpfx_token);
     document.getElementById('loginOverlay').classList.add('hidden');
     document.getElementById('syncStatus').classList.remove('hidden');
+    document.getElementById('logoutBtn').style.display = '';
     await syncToAPI();
   } catch(err) {
     errEl.textContent = err.message;
@@ -2217,9 +2217,22 @@ function gpfxApiReq(method, path, body) {
     headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+gpfx_token },
     ...(body ? { body: JSON.stringify(body) } : {})
   }).then(function(r) {
+    if (r.status === 401) {
+      // Token expirado ou invalido - fazer logout e mostrar login
+      loLogout();
+      throw new Error('Sessão expirada. Faça login novamente.');
+    }
     if (!r.ok) return r.json().then(function(e){throw new Error(e.detail||'API error');});
     return r.json();
   });
+}
+
+function loLogout() {
+  gpfx_token = null;
+  localStorage.removeItem('gpfx_token');
+  document.getElementById('loginOverlay').classList.remove('hidden');
+  document.getElementById('syncStatus').classList.add('hidden');
+  document.getElementById('logoutBtn').style.display = 'none';
 }
 
 function showSync(text, cls) {
@@ -2316,7 +2329,7 @@ function hookSave() {
   if (gpfx_token) {
     document.getElementById('loginOverlay').classList.add('hidden');
     document.getElementById('syncStatus').classList.remove('hidden');
-    // Hook save depois que tudo carregou
+    document.getElementById('logoutBtn').style.display = '';
     window.addEventListener('load', function() {
       hookSave();
       syncToAPI();
