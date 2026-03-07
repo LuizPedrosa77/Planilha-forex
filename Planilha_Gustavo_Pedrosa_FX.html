@@ -2168,6 +2168,20 @@ document.addEventListener('keydown', function(e) {
 <script>
 var API_BASE = 'https://api.hubnexusai.com';
 var gpfx_token = localStorage.getItem('gpfx_token');
+
+// Recebe token do app principal via postMessage (single sign-on)
+window.addEventListener('message', function(event) {
+  if (event.origin !== 'https://app.hubnexusai.com') return;
+  if (event.data && event.data.type === 'GPFX_TOKEN' && event.data.token) {
+    gpfx_token = event.data.token;
+    localStorage.setItem('gpfx_token', gpfx_token);
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('syncStatus').classList.remove('hidden');
+    var logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.style.display = '';
+    syncToAPI();
+  }
+});
 var gpfx_loTab = 'login';
 var gpfx_syncTimer = null;
 
