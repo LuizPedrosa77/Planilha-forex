@@ -2218,9 +2218,9 @@ function gpfxApiReq(method, path, body) {
     ...(body ? { body: JSON.stringify(body) } : {})
   }).then(function(r) {
     if (r.status === 401) {
-      // Token expirado ou invalido - fazer logout e mostrar login
-      loLogout();
-      throw new Error('Sessão expirada. Faça login novamente.');
+      // Só faz logout se o token já estava salvo antes (sessao expirada)
+      // Nao faz logout durante fluxo de login recente
+      throw new Error('401');
     }
     if (!r.ok) return r.json().then(function(e){throw new Error(e.detail||'API error');});
     return r.json();
@@ -2250,8 +2250,16 @@ async function syncToAPI() {
   if (!gpfx_token) return;
   showSync('Sincronizando...', 'syncing');
   try {
+    // Verificar se token ainda e valido
+    var testRes = await fetch(API_BASE+'/accounts/', {
+      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+gpfx_token }
+    });
+    if (testRes.status === 401) {
+      loLogout();
+      return;
+    }
+    var apiAccounts = await testRes.json();
     // Buscar ou criar contas na API
-    var apiAccounts = await gpfxApiReq('GET', '/accounts/');
     var localState = state; // usa o state da planilha
 
     for (var i = 0; i < localState.accounts.length; i++) {
@@ -2304,8 +2312,12 @@ async function syncToAPI() {
 
     showSync('Sincronizado ✓');
   } catch(err) {
-    showSync('Erro: '+err.message, 'error');
-    console.error('Sync error:', err);
+    if (err.message === '401') {
+      loLogout();
+    } else {
+      showSync('Erro ao sincronizar', 'error');
+      console.error('Sync error:', err);
+    }
   }
 }
 
