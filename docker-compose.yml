@@ -24,7 +24,7 @@ services:
 
 configs:
   planilha_html:
-    file: ./Planilha_Gustavo_Pedrosa_FX.html
+    file: ./Planilha_code_pro.html
 
 networks:
   traefik_public:
