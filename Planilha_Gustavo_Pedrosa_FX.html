@@ -3,46 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fimathe Code Pro</title>
+<title>Gustavo Pedrosa FX</title>
 <style>
   :root {
-    --primary: #1a56db;
-    --primary-light: #e8f0fe;
-    --success: #057a55;
-    --success-light: #def7ec;
-    --danger: #c81e1e;
-    --danger-light: #fde8e8;
-    --warning: #c27803;
-    --warning-light: #fdf6b2;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    --white: #ffffff;
+    --primary: #00d395;
+    --primary-light: rgba(0,211,149,0.15);
+    --success: #00d395;
+    --success-light: rgba(0,211,149,0.15);
+    --danger: #ff4d4d;
+    --danger-light: rgba(255,77,77,0.15);
+    --warning: #f59e0b;
+    --warning-light: rgba(245,158,11,0.15);
+    --gray-50: #161b22;
+    --gray-100: #21262d;
+    --gray-200: #30363d;
+    --gray-300: #484f58;
+    --gray-400: #6e7681;
+    --gray-500: #8b949e;
+    --gray-600: #b1bac4;
+    --gray-700: #c9d1d9;
+    --gray-800: #e6edf3;
+    --gray-900: #f0f6fc;
+    --white: #161b22;
     --radius: 8px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--gray-100);
+    background: #0d1117;
     color: var(--gray-800);
     font-size: 14px;
     min-height: 100vh;
   }
 
   .topbar {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
     padding: 0 24px;
     display: flex;
     align-items: center;
@@ -54,7 +54,7 @@
     box-shadow: var(--shadow);
   }
   .topbar-left { display: flex; align-items: center; gap: 12px; }
-  .logo { font-size: 18px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+  .logo { font-size: 18px; font-weight: 800; color: #00d395; letter-spacing: -0.5px; }
   .logo span { color: var(--gray-500); font-weight: 400; font-size: 13px; margin-left: 4px; }
   .save-indicator {
     font-size: 12px; color: var(--success); background: var(--success-light);
@@ -63,8 +63,8 @@
   .save-indicator.hidden { opacity: 0; }
 
   .account-tabs-wrapper {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-200);
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
     padding: 0 24px;
     display: flex;
     align-items: center;
@@ -89,6 +89,12 @@
   .acc-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
   .acc-tab-rename { font-size: 11px; margin-left: 4px; color: var(--gray-400); cursor: pointer; }
   .acc-tab-rename:hover { color: var(--primary); }
+  .acc-tab-add {
+    padding: 8px 14px; border: 2px dashed var(--gray-300); border-radius: 6px;
+    background: none; cursor: pointer; font-size: 16px; font-weight: 700;
+    color: var(--gray-400); transition: all 0.15s; margin-left: 4px;
+  }
+  .acc-tab-add:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
 
   .main {
     max-width: 1400px;
@@ -143,8 +149,8 @@
     border-radius: 6px;
     padding: 7px 10px;
     font-size: 13px;
-    color: var(--gray-800);
-    background: var(--white);
+    color: #e6edf3;
+    background: #0d1117;
     outline: none;
     transition: border-color 0.15s;
   }
@@ -160,7 +166,7 @@
     background: var(--white); cursor: pointer; font-size: 13px; font-weight: 500;
     color: var(--gray-600); transition: all 0.15s;
   }
-  .month-btn:hover { background: var(--gray-100); }
+  .month-btn:hover { background: #0d1117; }
   .month-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
 
   .year-picker-wrap { position: relative; display: inline-block; }
@@ -244,8 +250,8 @@
   }
   .trade-pair-badge { font-size: 13px; font-weight: 700; color: var(--gray-800); }
   .dir-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
-  .dir-buy { background: #dcfce7; color: #15803d; }
-  .dir-sell { background: #fee2e2; color: #b91c1c; }
+  .dir-buy { background: rgba(0,211,149,0.2); color: #00d395; }
+  .dir-sell { background: rgba(255,77,77,0.2); color: #ff4d4d; }
 
   .trade-total-pnl { margin-left: auto; font-size: 16px; font-weight: 800; }
   .trade-total-pnl.pos { color: var(--success); }
@@ -286,8 +292,8 @@
     border-radius: 6px;
     padding: 6px 8px;
     font-size: 13px;
-    color: var(--gray-800);
-    background: var(--white);
+    color: #e6edf3;
+    background: #0d1117;
     width: 100%;
   }
   .trade-field input:focus, .trade-field select:focus {
@@ -296,8 +302,8 @@
     outline: none;
   }
 
-  .result-select-win { background: var(--success-light) !important; color: var(--success) !important; font-weight: 700; }
-  .result-select-loss { background: var(--danger-light) !important; color: var(--danger) !important; font-weight: 700; }
+  .result-select-win { background: rgba(0,211,149,0.2) !important; color: #00d395 !important; font-weight: 700; }
+  .result-select-loss { background: rgba(255,77,77,0.2) !important; color: #ff4d4d !important; font-weight: 700; }
 
   .vm-toggle-row {
     display: flex; align-items: center; gap: 8px;
@@ -379,7 +385,7 @@
   .btn-danger { background: var(--danger-light); color: var(--danger); }
   .btn-danger:hover { background: #fbd5d5; }
   .btn-ghost { background: transparent; color: var(--gray-500); border: 1px solid var(--gray-200); }
-  .btn-ghost:hover { background: var(--gray-100); color: var(--gray-700); }
+  .btn-ghost:hover { background: #0d1117; color: var(--gray-700); }
   .btn-sm { padding: 4px 10px; font-size: 12px; }
   .btn-icon { width: 28px; height: 28px; padding: 0; justify-content: center; border-radius: 6px; }
 
@@ -393,7 +399,7 @@
   }
   .modal-overlay.open { display: flex; }
   .modal {
-    background: var(--white);
+    background: #161b22;
     border-radius: 10px;
     width: 420px;
     max-width: 95vw;
@@ -420,20 +426,82 @@
     .annual-grid { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
+
+<style id="login-styles">
+#loginOverlay {
+  position: fixed; inset: 0; background: #0d1117;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; font-family: 'DM Sans', sans-serif;
+}
+#loginOverlay.hidden { display: none; }
+.lo-card { background: #161b22; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 36px; width: 380px; }
+.lo-logo { text-align: center; margin-bottom: 32px; }
+.lo-logo h1 { font-size: 26px; font-weight: 800; color: #fff; margin: 0; }
+.lo-logo h1 span { color: #00d395; }
+.lo-logo p { color: #475569; font-size: 13px; margin: 6px 0 0; }
+.lo-tabs { display: flex; background: #0d1117; border-radius: 8px; padding: 4px; margin-bottom: 24px; }
+.lo-tab { flex: 1; padding: 8px 0; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; transition: all 0.2s; }
+.lo-tab.active { background: #00d395; color: #000; }
+.lo-tab:not(.active) { background: transparent; color: #475569; }
+.lo-field { margin-bottom: 14px; }
+.lo-field label { font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+.lo-field input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: #0d1117; color: #fff; font-size: 14px; outline: none; box-sizing: border-box; }
+.lo-btn { width: 100%; padding: 13px 0; border: none; border-radius: 10px; background: #00d395; color: #000; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 8px; }
+.lo-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.lo-error { background: rgba(255,77,77,0.1); border: 1px solid rgba(255,77,77,0.3); border-radius: 8px; padding: 10px 14px; color: #ff4d4d; font-size: 13px; margin-bottom: 12px; }
+.lo-sync { position: fixed; top: 16px; right: 16px; background: #161b22; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 700; color: #00d395; z-index: 500; display: flex; align-items: center; gap: 8px; }
+.lo-sync.syncing { color: #f59e0b; }
+.lo-sync.error { color: #ff4d4d; }
+</style>
+
 </head>
 <body>
 
+<!-- LOGIN OVERLAY -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<div id="loginOverlay">
+  <div class="lo-card">
+    <div class="lo-logo">
+      <h1><span>Gustavo</span> Pedrosa FX</h1>
+      <p>Gestão profissional de trading</p>
+    </div>
+    <div class="lo-tabs">
+      <button class="lo-tab active" id="loTabLogin" onclick="loSwitchTab('login')">Entrar</button>
+      <button class="lo-tab" id="loTabRegister" onclick="loSwitchTab('register')">Criar conta</button>
+    </div>
+    <div id="loFieldName" class="lo-field" style="display:none;">
+      <label>Nome</label>
+      <input id="loName" placeholder="Seu nome" />
+    </div>
+    <div class="lo-field">
+      <label>Email</label>
+      <input id="loEmail" type="email" placeholder="seu@email.com" />
+    </div>
+    <div class="lo-field" style="margin-bottom:20px;">
+      <label>Senha</label>
+      <input id="loPassword" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')loSubmit()" />
+    </div>
+    <div id="loError" class="lo-error" style="display:none;"></div>
+    <button class="lo-btn" id="loBtn" onclick="loSubmit()">Entrar</button>
+  </div>
+</div>
+
+<!-- SYNC STATUS -->
+<div class="lo-sync hidden" id="syncStatus">
+  <span id="syncDot">●</span> <span id="syncText">Sincronizado</span>
+</div>
+
+
 <div class="topbar">
   <div class="topbar-left">
-    <div class="logo">Fimathe Code <span>Pro</span></div>
-    <div style="font-size:11px;color:var(--gray-400);border-left:1px solid var(--gray-200);padding-left:12px;margin-left:4px;">desenvolvido por <strong style="color:var(--gray-600)">Cassio Alves</strong></div>
+    <div class="logo">📈 Gustavo Pedrosa FX</div>
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <div class="save-indicator hidden" id="saveIndicator">✓ Salvo</div>
     <button class="btn btn-primary btn-sm" onclick="openChartPanel()">📈 Evolução da Conta</button>
-    <button class="btn btn-ghost btn-sm" onclick="exportData()">⬇ Exportar</button>
-    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFile').click()">⬆ Importar</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    <button class="btn btn-ghost btn-sm" onclick="openExportModal()">⬇ Exportar CSV</button>
+    <button class="btn btn-primary btn-sm" onclick="openMT5Modal()">📥 Importar MT5</button>
+    <input type="file" id="importMT5File" accept=".html,.htm" style="display:none" onchange="importMT5(event)">
   </div>
 </div>
 
@@ -492,7 +560,69 @@
   </div>
 </div>
 
-<script>
+
+
+<div class="modal-overlay" id="exportModal">
+  <div class="modal" style="width:460px;">
+    <div class="modal-header">
+      <span class="card-title">⬇ Exportar para CSV</span>
+      <button class="btn btn-ghost btn-icon" onclick="closeModal('exportModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">O que exportar?</label>
+        <select id="exportAccountSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;">
+          <option value="active">Apenas a conta ativa</option>
+          <option value="all">Todas as contas</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Período</label>
+        <select id="exportPeriodSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;">
+          <option value="all">Todos os trades</option>
+          <option value="year">Ano atual</option>
+          <option value="month">Mês atual</option>
+        </select>
+      </div>
+      <div style="background:var(--gray-100);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--gray-600);line-height:1.6;">
+        O arquivo CSV pode ser aberto diretamente no <strong>Excel</strong> ou <strong>Google Sheets</strong>.<br>
+        Colunas: Conta, Data, Par, Direção, Lots, Resultado, P&L
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('exportModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmExport()">⬇ Baixar CSV</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mt5Modal">
+  <div class="modal" style="width:480px;">
+    <div class="modal-header">
+      <span class="card-title">📥 Importar Relatório MT5</span>
+      <button class="btn btn-ghost btn-icon" onclick="closeModal('mt5Modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Conta de destino</label>
+        <select id="mt5AccountSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;"></select>
+      </div>
+      <div style="background:var(--gray-100);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--gray-600);line-height:1.6;">
+        <strong style="color:var(--gray-700);">Como exportar do MT5:</strong><br>
+        1. Abra o MT5 → aba Histórico<br>
+        2. Clique com botão direito → Salvar como relatório detalhado<br>
+        3. Salve como arquivo <strong>.html</strong><br>
+        4. Selecione o arquivo abaixo
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('mt5Modal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmMT5Import()">📂 Selecionar arquivo</button>
+    </div>
+  </div>
+</div>
+
+<script charset="utf-8">
 const YEARS = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
 const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const PAIRS = ['EUR/USD','GBP/USD','USD/JPY','USD/CHF','AUD/USD','USD/CAD','NZD/USD','EUR/GBP','EUR/JPY','GBP/JPY','XAU/USD','Outro'];
@@ -505,20 +635,32 @@ let pendingDelete = null;
 let pendingRenameAccount = null;
 
 function initState() {
-  const saved = localStorage.getItem('forexTrackerPro_v2');
+  const saved = localStorage.getItem('gustavoPedrosaFX_v1');
   if (saved) {
     try {
       state = JSON.parse(saved);
-      while (state.accounts.length < NUM_ACCOUNTS) {
-        state.accounts.push(createAccount(state.accounts.length));
+      if (!state.accounts || state.accounts.length === 0) {
+        state.accounts = [createAccount(0)];
       }
+      if (state.activeAccount >= state.accounts.length) state.activeAccount = 0;
       return;
     } catch(e) {}
   }
-  state.accounts = [];
-  for (let i = 0; i < NUM_ACCOUNTS; i++) {
-    state.accounts.push(createAccount(i));
+  // Migrar dados antigos se existirem
+  const oldSaved = localStorage.getItem('forexTrackerPro_v2');
+  if (oldSaved) {
+    try {
+      const old = JSON.parse(oldSaved);
+      state = old;
+      // Filtrar só contas com trades
+      const withTrades = old.accounts.filter(a => a.trades && a.trades.length > 0);
+      state.accounts = withTrades.length > 0 ? withTrades : [createAccount(0)];
+      state.activeAccount = 0;
+      localStorage.setItem('gustavoPedrosaFX_v1', JSON.stringify(state));
+      return;
+    } catch(e) {}
   }
+  state.accounts = [createAccount(0)];
 }
 
 function createAccount(i) {
@@ -532,7 +674,7 @@ function createAccount(i) {
 }
 
 function save() {
-  localStorage.setItem('forexTrackerPro_v2', JSON.stringify(state));
+  localStorage.setItem('gustavoPedrosaFX_v1', JSON.stringify(state));
   showSaveIndicator();
 }
 
@@ -553,9 +695,31 @@ function renderTabs() {
   container.innerHTML = state.accounts.map((acc, i) =>
     '<button class="acc-tab ' + (i === state.activeAccount ? 'active' : '') + '" onclick="switchAccount(' + i + ')">'
     + escHtml(acc.name)
-    + '<span class="acc-tab-rename" onclick="event.stopPropagation();openRename(' + i + ')">✎</span>'
+    + '<span class="acc-tab-rename" title="Renomear" onclick="event.stopPropagation();openRename(' + i + ')">✎</span>'
+    + (state.accounts.length > 1 ? '<span class="acc-tab-rename" title="Excluir conta" style="color:var(--danger);margin-left:2px;" onclick="event.stopPropagation();deleteAccount(' + i + ')">✕</span>' : '')
     + '</button>'
-  ).join('');
+  ).join('')
+  + '<button class="acc-tab-add" onclick="addAccount()" title="Nova conta">＋</button>';
+}
+
+function addAccount() {
+  const name = 'Conta ' + (state.accounts.length + 1);
+  state.accounts.push({ name, balance: 50000, notes: '', trades: [], withdrawals: {} });
+  state.activeAccount = state.accounts.length - 1;
+  save();
+  render();
+}
+
+function deleteAccount(i) {
+  if (state.accounts.length <= 1) { alert('Você precisa ter pelo menos uma conta.'); return; }
+  const acc = state.accounts[i];
+  if (acc.trades && acc.trades.length > 0) {
+    if (!confirm('A conta "' + acc.name + '" tem ' + acc.trades.length + ' trades. Deseja excluí-la mesmo assim?')) return;
+  }
+  state.accounts.splice(i, 1);
+  if (state.activeAccount >= state.accounts.length) state.activeAccount = state.accounts.length - 1;
+  save();
+  render();
 }
 
 function renderMain() {
@@ -641,6 +805,26 @@ function renderMain() {
     + statBox('L\u00edquido ' + year, (yearNet >= 0 ? '+' : '') + '$' + fmtNum(yearNet), 'stat-year-net', yearNet >= 0 ? 'positive' : 'negative', 'P&L \u2212 saques', 'stat-year-net-sub')
     + statBox('P&L M\u00eas Selecionado', (monthPnl >= 0 ? '+' : '') + '$' + fmtNum(monthPnl), 'stat-month-pnl-ov', monthPnl >= 0 ? 'positive' : 'negative', MONTHS[month] + ' ' + year)
     + statBox('Win Rate (m\u00eas)', winRate + '%', 'stat-winrate', '', monthWins + 'W / ' + monthLosses + 'L')
+    + (function() {
+        // Melhor par do mês
+        const pairMap = {};
+        monthTrades.forEach(function(t) {
+          const p = signedPnl(t.pnl, t.result) + (t.hasVM ? signedPnl(t.vmPnl, t.vmResult) : 0);
+          pairMap[t.pair] = (pairMap[t.pair] || 0) + p;
+        });
+        const bestPair = Object.entries(pairMap).sort((a,b) => b[1]-a[1])[0];
+        const bestPairStr = bestPair ? bestPair[0] + ' (' + (bestPair[1] >= 0 ? '+' : '') + '$' + fmtNum(bestPair[1]) + ')' : '—';
+        // Drawdown máximo (mês)
+        let peak = 0, dd = 0, running = 0;
+        monthTrades.slice().sort((a,b) => (a.date||'') > (b.date||'') ? 1 : -1).forEach(function(t) {
+          running += signedPnl(t.pnl, t.result) + (t.hasVM ? signedPnl(t.vmPnl, t.vmResult) : 0);
+          if (running > peak) peak = running;
+          const curDD = peak - running;
+          if (curDD > dd) dd = curDD;
+        });
+        return statBox('Melhor Par', bestPairStr, '', 'positive', 'no mês')
+          + statBox('Drawdown Máx.', '-$' + fmtNum(dd), '', dd > 0 ? 'negative' : '', 'no mês');
+      })()
     + statBox('Trades no m\u00eas', monthTrades.length, '', '', monthTotal + ' fechados')
     + '</div></div></div>'
 
@@ -654,7 +838,13 @@ function renderMain() {
 
     + '<div class="card">'
     + '<div class="card-header"><span class="card-title">Trades \u2014 ' + MONTHS[month] + ' ' + year + '</span>'
-    + '<button class="btn btn-primary btn-sm" onclick="addNewDay()">+ Novo Dia</button></div>'
+    + '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">'
+    + '<select id="filterPair" onchange="applyFilters()" style="font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-700);cursor:pointer;"><option value="">Todos os pares</option>' + PAIRS.map(p => '<option>' + p + '</option>').join('') + '</select>'
+    + '<select id="filterDir" onchange="applyFilters()" style="font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-700);cursor:pointer;"><option value="">BUY + SELL</option><option>BUY</option><option>SELL</option></select>'
+    + '<select id="filterResult" onchange="applyFilters()" style="font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-700);cursor:pointer;"><option value="">WIN + LOSS</option><option>WIN</option><option>LOSS</option></select>'
+    + '<button class="btn btn-primary btn-sm" onclick="addNewDay()">+ Novo Dia</button>'
+    + '</div></div>'
+    
     + '<div class="month-summary">'
     + (function() {
         const monthPct = balance > 0 ? ((monthPnl / balance) * 100).toFixed(2) : '0.00';
@@ -665,6 +855,17 @@ function renderMain() {
     + '<input type="number" step="0.01" min="0" placeholder="0.00" value="' + (monthWithdrawal || '') + '" oninput="updateWithdrawal(' + year + ',' + month + ',parseFloat(this.value)||0)" style="width:90px;border:1px solid var(--gray-300);border-radius:6px;padding:4px 6px;font-size:13px;font-weight:700;color:var(--danger)"></div></div>'
     + '<div class="ms-item"><div class="ms-label">L\u00edquido M\u00eas</div><div class="ms-val ' + (monthNet >= 0 ? 'pos' : 'neg') + '" id="ms-net">' + (monthNet >= 0 ? '+' : '') + '$' + fmtNum(monthNet) + '</div></div>'
     + '<div class="ms-item"><div class="ms-label">Trades</div><div class="ms-val">' + monthTrades.length + '</div></div>'
+    + (function() {
+        const meta = acc.meta || 0;
+        if (!meta) return '<div class="ms-item"><div class="ms-label">Meta Mensal</div><div style="display:flex;align-items:center;gap:6px;"><input type="number" placeholder="Definir meta $" step="100" value="" oninput="updateMeta(parseFloat(this.value)||0)" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:4px 6px;font-size:12px;font-weight:700;color:var(--primary);background:#0d1117;"></div></div>';
+        const pct = Math.min(100, Math.max(0, (monthPnl / meta * 100)));
+        const pctStr = pct.toFixed(0);
+        const barColor = pct >= 100 ? '#00d395' : pct >= 50 ? '#f59e0b' : '#ff4d4d';
+        return '<div class="ms-item" style="min-width:180px;"><div class="ms-label" style="display:flex;justify-content:space-between;"><span>Meta: $' + fmtNum(meta) + '</span><span style="color:' + barColor + ';">' + pctStr + '%</span></div>'
+          + '<div style="background:var(--gray-200);border-radius:6px;height:6px;margin-top:4px;overflow:hidden;"><div style="width:' + pctStr + '%;background:' + barColor + ';height:100%;border-radius:6px;transition:width 0.3s;"></div></div>'
+          + '<div style="margin-top:3px;"><input type="number" placeholder="Alterar meta" step="100" value="' + meta + '" oninput="updateMeta(parseFloat(this.value)||0)" style="width:110px;border:1px solid var(--gray-300);border-radius:6px;padding:3px 6px;font-size:11px;color:var(--primary);background:#0d1117;"></div>'
+          + '</div>';
+      })()
     + '<div class="ms-item"><div class="ms-label">Wins</div><div class="ms-val pos" id="ms-wins">' + monthWins + '</div></div>'
     + '<div class="ms-item"><div class="ms-label">Losses</div><div class="ms-val neg" id="ms-losses">' + monthLosses + '</div></div>'
     + '<div class="ms-item"><div class="ms-label">Win Rate</div><div class="ms-val" id="ms-winrate">' + winRate + '%</div></div>'
@@ -794,10 +995,33 @@ function renderTradesTable(trades) {
   return '<div class="trades-list">' + html + '</div>';
 }
 
+
+function applyFilters() {
+  const acc = state.accounts[state.activeAccount];
+  const year = state.activeYear;
+  const month = state.activeMonth;
+  const pair = (document.getElementById('filterPair') || {}).value || '';
+  const dir = (document.getElementById('filterDir') || {}).value || '';
+  const result = (document.getElementById('filterResult') || {}).value || '';
+  let trades = acc.trades.filter(t => t.year === year && t.month === month);
+  if (pair) trades = trades.filter(t => t.pair === pair);
+  if (dir) trades = trades.filter(t => t.dir === dir);
+  if (result) trades = trades.filter(t => t.result === result);
+  const container = document.getElementById('tradesContainer');
+  if (container) container.innerHTML = renderTradesTable(trades);
+}
+
 function switchAccount(i) {
   state.activeAccount = i;
   save();
   render();
+}
+
+
+function updateMeta(val) {
+  state.accounts[state.activeAccount].meta = val;
+  save();
+  renderMain();
 }
 
 function updateBalance(val) {
@@ -1067,6 +1291,32 @@ function confirmDelete() {
   renderMain();
 }
 
+
+function openMT5Modal() {
+  const sel = document.getElementById('mt5AccountSelect');
+  sel.innerHTML = state.accounts.map((acc, i) =>
+    '<option value="' + i + '"' + (i === state.activeAccount ? ' selected' : '') + '>' + escHtml(acc.name) + ' (' + acc.trades.length + ' trades)</option>'
+  ).join('') + '<option value="new">➕ Nova conta...</option>';
+  document.getElementById('mt5Modal').classList.add('open');
+}
+
+function confirmMT5Import() {
+  const sel = document.getElementById('mt5AccountSelect');
+  const val = sel.value;
+  if (val === 'new') {
+    const name = prompt('Nome da nova conta:');
+    if (!name) return;
+    state.accounts.push({ name, balance: 50000, notes: '', trades: [], withdrawals: {} });
+    state.activeAccount = state.accounts.length - 1;
+    save();
+    renderTabs();
+  } else {
+    state.activeAccount = parseInt(val);
+  }
+  closeModal('mt5Modal');
+  document.getElementById('importMT5File').click();
+}
+
 function openRename(i) {
   pendingRenameAccount = i;
   document.getElementById('renameInput').value = state.accounts[i].name;
@@ -1088,31 +1338,192 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
-function exportData() {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'fimathe_code_pro_backup_' + new Date().toISOString().split('T')[0] + '.json';
-  a.click();
+function openExportModal() {
+  const sel = document.getElementById('exportAccountSelect');
+  sel.innerHTML = '<option value="active">Apenas: ' + escHtml(state.accounts[state.activeAccount].name) + '</option>'
+    + '<option value="all">Todas as contas (' + state.accounts.length + ')</option>';
+  document.getElementById('exportModal').classList.add('open');
 }
 
-function importData(e) {
+function confirmExport() {
+  const accountMode = document.getElementById('exportAccountSelect').value;
+  const periodMode = document.getElementById('exportPeriodSelect').value;
+
+  const accounts = accountMode === 'all' ? state.accounts : [state.accounts[state.activeAccount]];
+
+  let rows = [['Conta','Data','Par','Direção','Lots','Resultado','P&L (USD)','Virada de Mão','P&L VM (USD)','P&L Total (USD)']];
+
+  accounts.forEach(function(acc) {
+    let trades = acc.trades.slice();
+
+    if (periodMode === 'year') {
+      trades = trades.filter(function(t) { return t.year === state.activeYear; });
+    } else if (periodMode === 'month') {
+      trades = trades.filter(function(t) { return t.year === state.activeYear && t.month === state.activeMonth; });
+    }
+
+    trades.sort(function(a, b) { return (a.date || '') > (b.date || '') ? 1 : -1; });
+
+    trades.forEach(function(t) {
+      const pnlMain = signedPnl(t.pnl, t.result);
+      const pnlVM = t.hasVM ? signedPnl(t.vmPnl, t.vmResult) : 0;
+      const pnlTotal = pnlMain + pnlVM;
+      rows.push([
+        acc.name,
+        t.date || '',
+        t.pair || '',
+        t.dir || '',
+        t.lots || '',
+        t.result || '',
+        pnlMain.toFixed(2),
+        t.hasVM ? 'Sim' : 'Não',
+        pnlVM !== 0 ? pnlVM.toFixed(2) : '',
+        pnlTotal.toFixed(2)
+      ]);
+    });
+  });
+
+  // Build CSV with BOM for Excel UTF-8 compatibility
+  const csv = '\uFEFF' + rows.map(function(row) {
+    return row.map(function(cell) {
+      const str = String(cell);
+      return str.includes(',') || str.includes('"') || str.includes('\n')
+        ? '"' + str.replace(/"/g, '""') + '"'
+        : str;
+    }).join(',');
+  }).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const today = new Date().toISOString().split('T')[0];
+  const accLabel = accountMode === 'all' ? 'todas-contas' : state.accounts[state.activeAccount].name.replace(/\s+/g, '-');
+  a.download = 'gustavo-pedrosa-fx_' + accLabel + '_' + today + '.csv';
+  a.click();
+
+  closeModal('exportModal');
+}
+
+
+function importMT5(e) {
   const file = e.target.files[0];
   if (!file) return;
+
   const reader = new FileReader();
   reader.onload = function(ev) {
     try {
-      const imported = JSON.parse(ev.target.result);
-      state = imported;
+      // Detect encoding (UTF-16 for MT5 files)
+      const buffer = ev.target.result;
+      const bytes = new Uint8Array(buffer);
+      let text = '';
+
+      // Check for UTF-16 BOM (FF FE)
+      if (bytes[0] === 0xFF && bytes[1] === 0xFE) {
+        text = new TextDecoder('utf-16le').decode(buffer);
+      } else {
+        text = new TextDecoder('utf-8').decode(buffer);
+      }
+
+      // Parse HTML and extract positions table
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const allText = doc.body ? doc.body.innerText : text;
+
+      // Find positions section and stop at Ordens
+      const posStart = allText.indexOf('Posições');
+      const posEnd = allText.indexOf('Ordens', posStart);
+      if (posStart === -1) {
+        alert('Seção "Posições" não encontrada. Verifique se o arquivo é um relatório MT5 válido.');
+        return;
+      }
+      const posText = allText.substring(posStart, posEnd > -1 ? posEnd : undefined);
+
+      // Extract rows using regex
+      // Pattern: date time, position_id, asset, type, [strategy], volume, price_open, sl, tp, date_close time_close, price_close, commission, swap, profit
+      const datePattern = /(\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2})\s+(\d+)\s+([\w.]+)\s+(buy|sell)\s+(?:[\w_]+\s+)?(\d+\.?\d*)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+(\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2})\s+([\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)/gi;
+
+      const trades = [];
+      let match;
+      while ((match = datePattern.exec(posText)) !== null) {
+        const openDate  = match[1];  // 2026.03.02 01:45:00
+        const asset     = match[3];  // XAUUSD.x
+        const type      = match[4];  // buy/sell
+        const lots      = parseFloat(match[5]);
+        const commission= parseFloat(match[11]) || 0;
+        const swap      = parseFloat(match[12]) || 0;
+        const profit    = parseFloat(match[13]) || 0;
+
+        // Net PnL = profit + commission + swap
+        const pnl = parseFloat((profit + commission + swap).toFixed(2));
+        const result = pnl >= 0 ? 'WIN' : 'LOSS';
+
+        // Parse date: 2026.03.02 → 2026-03-02
+        const dateParts = openDate.split(' ')[0].split('.');
+        const dateFormatted = dateParts[0] + '-' + dateParts[1] + '-' + dateParts[2];
+        const year = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]) - 1; // 0-indexed
+
+        // Clean asset name (remove .x suffix)
+        const pair = asset.replace(/\.x$/i, '');
+
+        trades.push({
+          id: uid(),
+          year, month,
+          date: dateFormatted,
+          pair,
+          dir: type.toUpperCase(),
+          lots,
+          result,
+          pnl: Math.abs(pnl),
+          hasVM: false,
+          vmLots: 0,
+          vmResult: 'WIN',
+          vmPnl: 0
+        });
+      }
+
+      if (trades.length === 0) {
+        alert('Nenhum trade encontrado. Verifique se o arquivo é um relatório MT5 válido.');
+        return;
+      }
+
+      // Add trades to active account
+      const acc = state.accounts[state.activeAccount];
+      
+      // Check for duplicates by date+pair+pnl
+      let added = 0;
+      trades.forEach(function(t) {
+        const isDuplicate = acc.trades.some(function(existing) {
+          return existing.date === t.date && existing.pair === t.pair && Math.abs(existing.pnl) === Math.abs(t.pnl);
+        });
+        if (!isDuplicate) {
+          acc.trades.push(t);
+          added++;
+        }
+      });
+
+      // Navegar automaticamente para o mês/ano do primeiro trade
+      if (trades.length > 0) {
+        const sortedTrades = trades.slice().sort((a,b) => a.date > b.date ? 1 : -1);
+        state.activeYear = sortedTrades[0].year;
+        state.activeMonth = sortedTrades[0].month;
+      }
+
       save();
       render();
+
+      alert('✅ Importação concluída!\n\n' + added + ' trades importados para "' + state.accounts[state.activeAccount].name + '".\n' + (trades.length - added) + ' duplicados ignorados.');
+
     } catch(err) {
-      alert('Arquivo inv\u00e1lido.');
+      console.error(err);
+      alert('Erro ao importar: ' + err.message);
     }
   };
-  reader.readAsText(file);
+
+  reader.readAsArrayBuffer(file);
   e.target.value = '';
 }
+
 
 function signedPnl(pnl, result) {
   const v = Math.abs(pnl || 0);
@@ -1174,6 +1585,12 @@ document.getElementById('renameInput').addEventListener('keydown', function(e) {
 });
 
 initState();
+// Se não há dados salvos, ir para o mês atual
+const _now = new Date();
+if (!localStorage.getItem('gustavoPedrosaFX_v1')) {
+  state.activeYear = _now.getFullYear();
+  state.activeMonth = _now.getMonth();
+}
 render();
 </script>
 
@@ -1236,7 +1653,69 @@ render();
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
+
+
+<div class="modal-overlay" id="exportModal">
+  <div class="modal" style="width:460px;">
+    <div class="modal-header">
+      <span class="card-title">⬇ Exportar para CSV</span>
+      <button class="btn btn-ghost btn-icon" onclick="closeModal('exportModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">O que exportar?</label>
+        <select id="exportAccountSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;">
+          <option value="active">Apenas a conta ativa</option>
+          <option value="all">Todas as contas</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Período</label>
+        <select id="exportPeriodSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;">
+          <option value="all">Todos os trades</option>
+          <option value="year">Ano atual</option>
+          <option value="month">Mês atual</option>
+        </select>
+      </div>
+      <div style="background:var(--gray-100);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--gray-600);line-height:1.6;">
+        O arquivo CSV pode ser aberto diretamente no <strong>Excel</strong> ou <strong>Google Sheets</strong>.<br>
+        Colunas: Conta, Data, Par, Direção, Lots, Resultado, P&L
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('exportModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmExport()">⬇ Baixar CSV</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mt5Modal">
+  <div class="modal" style="width:480px;">
+    <div class="modal-header">
+      <span class="card-title">📥 Importar Relatório MT5</span>
+      <button class="btn btn-ghost btn-icon" onclick="closeModal('mt5Modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Conta de destino</label>
+        <select id="mt5AccountSelect" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--gray-300);background:#0d1117;color:var(--gray-800);font-size:13px;"></select>
+      </div>
+      <div style="background:var(--gray-100);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--gray-600);line-height:1.6;">
+        <strong style="color:var(--gray-700);">Como exportar do MT5:</strong><br>
+        1. Abra o MT5 → aba Histórico<br>
+        2. Clique com botão direito → Salvar como relatório detalhado<br>
+        3. Salve como arquivo <strong>.html</strong><br>
+        4. Selecione o arquivo abaixo
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('mt5Modal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmMT5Import()">📂 Selecionar arquivo</button>
+    </div>
+  </div>
+</div>
+
+<script charset="utf-8">
 var chartInstances = {};
 var currentChartTab = 'overview';
 
@@ -1244,14 +1723,12 @@ function openChartPanel() {
   var panel = document.getElementById('chartPanel');
   panel.style.display = 'flex';
   var acc = state.accounts[state.activeAccount];
-  var years = [];
-  acc.trades.forEach(function(t) { if (years.indexOf(t.year) === -1) years.push(t.year); });
-  years.sort();
+  var fixedYears = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
   var sel = document.getElementById('chartYearFilter');
   sel.innerHTML = '<option value="all">Todos os anos</option>'
-    + years.map(function(y) { return '<option value="' + y + '">' + y + '</option>'; }).join('');
-  if (years.indexOf(state.activeYear) !== -1) sel.value = state.activeYear;
-  else sel.value = 'all';
+    + fixedYears.map(function(y) { return '<option value="' + y + '">' + y + '</option>'; }).join('');
+  if (fixedYears.indexOf(state.activeYear) !== -1) sel.value = state.activeYear;
+  else sel.value = state.activeYear;
   document.getElementById('chartAccName').textContent = acc.name;
   switchChartTab('overview');
 }
@@ -1267,7 +1744,7 @@ function switchChartTab(tab) {
     var btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
     var content = document.getElementById('tabContent' + t.charAt(0).toUpperCase() + t.slice(1));
     if (t === tab) {
-      btn.style.background = '#1a56db';
+      btn.style.background = '#00d395';
       btn.style.color = '#fff';
       content.style.display = (t === 'overview') ? 'grid' : 'block';
     } else {
@@ -1304,8 +1781,10 @@ function buildChartData() {
   years.forEach(function(y) {
     MONTHS.forEach(function(mName, mi) {
       var mt = trades.filter(function(t) { return t.year === y && t.month === mi; });
-      if (yearFilter !== 'all' || mt.length > 0) {
-        var label = mName + (years.length > 1 ? ' \'' + String(y).slice(2) : '');
+      // Se ano especifico: sempre mostra Jan-Dez. Se "Todos": so meses com trades
+      var showMonth = yearFilter !== 'all' || mt.length > 0;
+      if (showMonth) {
+        var label = yearFilter !== 'all' ? mName : mName + " '" + String(y).slice(2);
         var pnl = parseFloat(sumPnl(mt).toFixed(2));
         var pct = runningBalance > 0 ? parseFloat(((pnl / runningBalance) * 100).toFixed(2)) : 0;
         var wins = mt.filter(function(t) { return t.result === 'WIN'; }).length;
@@ -1486,80 +1965,166 @@ function renderMonthlyDetail(d) {
   if (!grid) return;
 
   if (d.labels.length === 0) {
-    grid.innerHTML = '<div style="text-align:center;padding:60px;color:#475569;">Nenhum trade encontrado para o filtro selecionado.</div>';
+    grid.innerHTML = '<div style="text-align:center;padding:60px;color:#475569;">Nenhum trade encontrado. Selecione um ano no filtro acima.</div>';
     return;
   }
 
-  var runBal = d.baseBalance;
+  var totalPnl = d.monthPnls.reduce(function(s,v){return s+v;},0);
+  var totalWins = d.monthWinsArr.reduce(function(s,v){return s+v;},0);
+  var totalLosses = d.monthLossesArr.reduce(function(s,v){return s+v;},0);
+  var totalTrades = d.monthCounts.reduce(function(s,v){return s+v;},0);
+  var overallWR = totalTrades > 0 ? ((totalWins/totalTrades)*100).toFixed(1) : '0.0';
+  var bestIdx = d.monthPnls.indexOf(Math.max.apply(null, d.monthPnls));
+  var worstIdx = d.monthPnls.indexOf(Math.min.apply(null, d.monthPnls));
+  var bestPnl = d.monthPnls[bestIdx] || 0;
+  var worstPnl = d.monthPnls[worstIdx] || 0;
+
   var html = '';
 
+  // Sumário anual
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px;">';
+  html += kpiCard('P&L Total', (totalPnl>=0?'+':'')+'$'+fmtNum(totalPnl), totalTrades+' trades no período', totalPnl>=0?'#22c55e':'#ef4444');
+  html += kpiCard('Win Rate', overallWR+'%', totalWins+'W / '+totalLosses+'L', parseFloat(overallWR)>=50?'#22c55e':'#ef4444');
+  html += kpiCard('Melhor Mês', (bestPnl>=0?'+':'')+'$'+fmtNum(bestPnl), d.labels[bestIdx]||'—', '#22c55e');
+  html += kpiCard('Pior Mês', (worstPnl<0?'-':'+')+'$'+fmtNum(Math.abs(worstPnl)), d.labels[worstIdx]||'—', worstPnl<0?'#ef4444':'#22c55e');
+  html += '</div>';
+
+  // Gráfico de barras
+  html += '<div style="background:#1e293b;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:24px;margin-bottom:20px;">';
+  html += '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:20px;">📊 P&L por Mês (USD)</div>';
+  html += '<div style="position:relative;height:320px;"><canvas id="chartMonthlyPnlBar"></canvas></div>';
+  html += '</div>';
+
+  // Cards por mês
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">';
+
+  var runBal = d.baseBalance;
   d.labels.forEach(function(label, i) {
     var pnl = d.monthPnls[i];
     var pct = d.monthPcts[i];
     var wins = d.monthWinsArr[i];
     var losses = d.monthLossesArr[i];
     var total = d.monthCounts[i];
-    var wr = total > 0 ? ((wins / total) * 100).toFixed(1) : '0.0';
+    var wr = total > 0 ? ((wins/total)*100).toFixed(1) : '0.0';
     var balBefore = runBal;
     var balAfter = parseFloat((runBal + pnl).toFixed(2));
     runBal = balAfter;
     var cumPct = d.cumulativePcts[i];
     var pnlColor = pnl >= 0 ? '#22c55e' : '#ef4444';
-    var pctColor = pct >= 0 ? '#22c55e' : '#ef4444';
-
-    // Progress bar width for win rate
+    var borderColor = pnl > 0 ? 'rgba(34,197,94,0.2)' : pnl < 0 ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.06)';
     var wrWidth = parseFloat(wr);
 
-    // Bar width for pnl relative to best/worst
-    var maxAbs = Math.max.apply(null, d.monthPnls.map(function(v) { return Math.abs(v); }));
-    var barW = maxAbs > 0 ? Math.abs(pnl / maxAbs * 100) : 0;
+    html += '<div style="background:#1e293b;border:1px solid '+borderColor+';border-radius:14px;padding:18px 20px;">';
 
-    html += '<div style="background:#1e293b;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px 24px;">';
-
-    // Month header
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">';
-    html += '<div style="display:flex;align-items:center;gap:14px;">';
-    html += '<span style="font-size:15px;font-weight:800;color:#fff;">' + label + '</span>';
-    html += '<span style="font-size:12px;font-weight:700;color:' + pnlColor + ';background:' + (pnl >= 0 ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)') + ';padding:3px 10px;border-radius:20px;">' + (pnl >= 0 ? '+' : '') + '$' + fmtNum(pnl) + '</span>';
-    html += '<span style="font-size:12px;font-weight:700;color:' + pctColor + ';background:rgba(255,255,255,0.05);padding:3px 10px;border-radius:20px;">' + (pct >= 0 ? '+' : '') + pct + '% da conta</span>';
+    // Header
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">';
+    html += '<span style="font-size:14px;font-weight:800;color:#fff;">'+label+'</span>';
+    html += '<span style="font-size:15px;font-weight:800;color:'+pnlColor+';">'+(pnl>=0?'+':'')+'$'+fmtNum(pnl)+'</span>';
     html += '</div>';
-    html += '<div style="display:flex;align-items:center;gap:20px;">';
-    html += '<div style="text-align:right;"><div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;">Saldo Antes</div><div style="font-size:13px;font-weight:700;color:#94a3b8;">$' + fmtNum(balBefore) + '</div></div>';
-    html += '<div style="font-size:18px;color:#334155;">→</div>';
-    html += '<div style="text-align:right;"><div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;">Saldo Depois</div><div style="font-size:14px;font-weight:800;color:' + pnlColor + ';">$' + fmtNum(balAfter) + '</div></div>';
-    html += '</div></div>';
 
-    // Stats row
-    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px;">';
+    // Mini stats
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">';
     html += miniStat('Trades', total, '#a78bfa');
-    html += miniStat('Wins', wins, '#22c55e');
-    html += miniStat('Losses', losses, '#ef4444');
-    html += miniStat('Win Rate', wr + '%', parseFloat(wr) >= 50 ? '#22c55e' : '#ef4444');
-    html += miniStat('P&L', (pnl >= 0 ? '+' : '') + '$' + fmtNum(pnl), pnlColor);
-    html += miniStat('% Mês', (pct >= 0 ? '+' : '') + pct + '%', pctColor);
-    html += miniStat('Acumulado', (cumPct >= 0 ? '+' : '') + cumPct + '%', cumPct >= 0 ? '#22c55e' : '#ef4444');
-    html += miniStat('Saldo Final', '$' + fmtNum(balAfter), '#60a5fa');
+    html += miniStat('Win Rate', wr+'%', parseFloat(wr)>=50?'#22c55e':'#ef4444');
+    html += miniStat('Wins / Losses', wins+'W / '+losses+'L', '#94a3b8');
+    html += miniStat('Acumulado', (cumPct>=0?'+':'')+cumPct+'%', cumPct>=0?'#22c55e':'#ef4444');
     html += '</div>';
 
     // Win rate bar
-    html += '<div style="margin-bottom:10px;">';
-    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;">Win Rate</span><span style="font-size:11px;font-weight:700;color:' + (parseFloat(wr) >= 50 ? '#22c55e' : '#ef4444') + ';">' + wr + '%</span></div>';
-    html += '<div style="background:rgba(255,255,255,0.05);border-radius:6px;height:8px;overflow:hidden;display:flex;">';
-    html += '<div style="width:' + wrWidth + '%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:6px;transition:width 0.4s;"></div>';
-    html += '<div style="width:' + (100 - wrWidth) + '%;background:rgba(239,68,68,0.4);border-radius:0 6px 6px 0;"></div>';
+    html += '<div style="margin-bottom:8px;">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px;">';
+    html += '<span style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;">Win Rate</span>';
+    html += '<span style="font-size:10px;font-weight:700;color:'+(parseFloat(wr)>=50?'#22c55e':'#ef4444')+';">'+wr+'%</span>';
+    html += '</div>';
+    html += '<div style="background:rgba(255,255,255,0.05);border-radius:4px;height:6px;overflow:hidden;display:flex;">';
+    html += '<div style="width:'+wrWidth+'%;background:#22c55e;border-radius:4px;"></div>';
+    html += '<div style="width:'+(100-wrWidth)+'%;background:rgba(239,68,68,0.35);"></div>';
     html += '</div></div>';
 
-    // P&L bar
-    html += '<div>';
-    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;">P&L do Mês</span><span style="font-size:11px;font-weight:700;color:' + pnlColor + ';">' + (pnl >= 0 ? '+' : '') + pct + '% da conta</span></div>';
-    html += '<div style="background:rgba(255,255,255,0.05);border-radius:6px;height:8px;overflow:hidden;">';
-    html += '<div style="width:' + barW.toFixed(1) + '%;background:' + (pnl >= 0 ? 'linear-gradient(90deg,#22c55e,#16a34a)' : 'linear-gradient(90deg,#ef4444,#dc2626)') + ';border-radius:6px;transition:width 0.4s;"></div>';
-    html += '</div></div>';
+    // Saldo antes → depois
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(255,255,255,0.05);">';
+    html += '<div><div style="font-size:9px;color:#475569;font-weight:700;text-transform:uppercase;">Saldo Antes</div>';
+    html += '<div style="font-size:12px;font-weight:700;color:#64748b;">$'+fmtNum(balBefore)+'</div></div>';
+    html += '<div style="color:#334155;font-size:14px;">→</div>';
+    html += '<div style="text-align:right;"><div style="font-size:9px;color:#475569;font-weight:700;text-transform:uppercase;">Saldo Depois</div>';
+    html += '<div style="font-size:13px;font-weight:800;color:'+pnlColor+';">$'+fmtNum(balAfter)+'</div></div>';
+    html += '</div>';
 
     html += '</div>';
   });
 
+  html += '</div>';
   grid.innerHTML = html;
+
+  // Renderizar gráfico após HTML estar no DOM
+  setTimeout(function() {
+    destroyChart('chartMonthlyPnlBar');
+    var canvas = document.getElementById('chartMonthlyPnlBar');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var gc = 'rgba(255,255,255,0.04)';
+    var tk = { color: '#475569', font: { size: 11 } };
+    var tt = { backgroundColor: '#0f172a', titleColor: '#fff', bodyColor: '#94a3b8', borderColor: 'rgba(255,255,255,0.08)', borderWidth: 1, padding: 12 };
+
+    chartInstances['chartMonthlyPnlBar'] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: d.labels,
+        datasets: [{
+          data: d.monthPnls,
+          backgroundColor: d.monthPnls.map(function(v) { return v >= 0 ? 'rgba(0,211,149,0.75)' : 'rgba(255,77,77,0.75)'; }),
+          borderColor: d.monthPnls.map(function(v) { return v >= 0 ? '#00d395' : '#ff4d4d'; }),
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: Object.assign({}, tt, {
+            callbacks: {
+              label: function(ctx) {
+                var v = ctx.parsed.y;
+                var i = ctx.dataIndex;
+                var wr = d.monthCounts[i] > 0 ? ((d.monthWinsArr[i]/d.monthCounts[i])*100).toFixed(1) : '0.0';
+                return (v>=0?'+':'')+'$'+fmtNum(v)+'  ('+d.monthCounts[i]+' trades, WR: '+wr+'%)';
+              }
+            }
+          })
+        },
+        scales: {
+          x: { grid: { color: gc }, ticks: tk, border: { color: gc } },
+          y: {
+            grid: { color: gc },
+            border: { color: gc },
+            ticks: Object.assign({}, tk, { callback: function(v) { return (v>=0?'+':'')+'$'+fmtNum(v); } })
+          }
+        },
+        animation: {
+          onComplete: function() {
+            var chart = this;
+            var ctx2 = chart.ctx;
+            ctx2.save();
+            ctx2.font = 'bold 11px -apple-system, sans-serif';
+            ctx2.textAlign = 'center';
+            chart.data.datasets.forEach(function(dataset, di) {
+              chart.getDatasetMeta(di).data.forEach(function(bar, idx) {
+                var val = dataset.data[idx];
+                if (val === 0) return;
+                var label = (val >= 0 ? '+' : '') + '$' + fmtNum(val);
+                ctx2.fillStyle = val >= 0 ? '#00d395' : '#ff4d4d';
+                ctx2.textBaseline = val >= 0 ? 'bottom' : 'top';
+                ctx2.fillText(label, bar.x, val >= 0 ? bar.y - 4 : bar.y + 4);
+              });
+            });
+            ctx2.restore();
+          }
+        }
+      }
+    });
+  }, 50);
 }
 
 function kpiCard(label, value, sub, color) {
@@ -1580,9 +2145,187 @@ function miniStat(label, value, color) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     var panel = document.getElementById('chartPanel');
-    if (panel && panel.style.display !== 'none') closeChartPanel();
+    if (panel && panel.style.display !== 'none') { closeChartPanel(); return; }
+    document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+  }
+  // Setas para navegar entre meses (sem estar em input)
+  if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    var panel = document.getElementById('chartPanel');
+    if (panel && panel.style.display !== 'none') return;
+    if (e.key === 'ArrowLeft') {
+      if (state.activeMonth > 0) { state.activeMonth--; }
+      else { state.activeMonth = 11; state.activeYear--; }
+    } else {
+      if (state.activeMonth < 11) { state.activeMonth++; }
+      else { state.activeMonth = 0; state.activeYear++; }
+    }
+    save();
+    renderMain();
   }
 });
 </script>
+
+<script>
+var API_BASE = 'https://api.hubnexusai.com';
+var gpfx_token = localStorage.getItem('gpfx_token');
+var gpfx_loTab = 'login';
+var gpfx_syncTimer = null;
+
+function loSwitchTab(tab) {
+  gpfx_loTab = tab;
+  document.getElementById('loTabLogin').className = 'lo-tab' + (tab==='login'?' active':'');
+  document.getElementById('loTabRegister').className = 'lo-tab' + (tab==='register'?' active':'');
+  document.getElementById('loFieldName').style.display = tab==='register' ? '' : 'none';
+  document.getElementById('loBtn').textContent = tab==='login' ? 'Entrar' : 'Criar conta';
+  document.getElementById('loError').style.display = 'none';
+}
+
+async function loSubmit() {
+  var btn = document.getElementById('loBtn');
+  var errEl = document.getElementById('loError');
+  var email = document.getElementById('loEmail').value.trim();
+  var password = document.getElementById('loPassword').value;
+  var name = document.getElementById('loName').value.trim();
+  errEl.style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Aguarde...';
+  try {
+    if (gpfx_loTab === 'register') {
+      var r = await fetch(API_BASE+'/auth/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name,email,password}) });
+      if (!r.ok) { var e=await r.json(); throw new Error(e.detail||'Erro ao cadastrar'); }
+    }
+    var r2 = await fetch(API_BASE+'/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password}) });
+    if (!r2.ok) { var e2=await r2.json(); throw new Error(e2.detail||'Credenciais inválidas'); }
+    var data = await r2.json();
+    gpfx_token = data.access_token;
+    localStorage.setItem('gpfx_token', gpfx_token);
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('syncStatus').classList.remove('hidden');
+    await syncToAPI();
+  } catch(err) {
+    errEl.textContent = err.message;
+    errEl.style.display = '';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = gpfx_loTab==='login' ? 'Entrar' : 'Criar conta';
+  }
+}
+
+function gpfxApiReq(method, path, body) {
+  return fetch(API_BASE+path, {
+    method,
+    headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+gpfx_token },
+    ...(body ? { body: JSON.stringify(body) } : {})
+  }).then(function(r) {
+    if (!r.ok) return r.json().then(function(e){throw new Error(e.detail||'API error');});
+    return r.json();
+  });
+}
+
+function showSync(text, cls) {
+  var el = document.getElementById('syncStatus');
+  var txt = document.getElementById('syncText');
+  el.className = 'lo-sync ' + (cls||'');
+  txt.textContent = text;
+  if (cls !== 'syncing') {
+    clearTimeout(gpfx_syncTimer);
+    gpfx_syncTimer = setTimeout(function(){ el.classList.add('hidden'); }, 3000);
+  }
+}
+
+async function syncToAPI() {
+  if (!gpfx_token) return;
+  showSync('Sincronizando...', 'syncing');
+  try {
+    // Buscar ou criar contas na API
+    var apiAccounts = await gpfxApiReq('GET', '/accounts/');
+    var localState = state; // usa o state da planilha
+
+    for (var i = 0; i < localState.accounts.length; i++) {
+      var localAcc = localState.accounts[i];
+      // Encontrar conta correspondente pelo nome
+      var apiAcc = apiAccounts.find(function(a){ return a.name === localAcc.name; });
+      if (!apiAcc) {
+        apiAcc = await gpfxApiReq('POST', '/accounts/', { name: localAcc.name, balance: localAcc.balance, notes: localAcc.notes||'' });
+        apiAccounts.push(apiAcc);
+      } else {
+        await gpfxApiReq('PUT', '/accounts/'+apiAcc.id, { balance: localAcc.balance, notes: localAcc.notes||'' });
+      }
+
+      // Sync trades via bulk (duplicatas ignoradas automaticamente)
+      if (localAcc.trades && localAcc.trades.length > 0) {
+        var payload = localAcc.trades.map(function(t) {
+          return {
+            account_id: apiAcc.id,
+            date: t.date || '2026-01-01',
+            year: t.year,
+            month: t.month,
+            pair: t.pair || 'EUR/USD',
+            dir: t.dir || 'BUY',
+            lots: t.lots || 0.01,
+            result: t.result || 'WIN',
+            pnl: Math.abs(t.pnl || 0),
+            has_vm: t.hasVM || false,
+            vm_result: t.vmResult || 'WIN',
+            vm_pnl: Math.abs(t.vmPnl || 0),
+            commission: t.commission || 0,
+            swap: t.swap || 0,
+          };
+        });
+        await gpfxApiReq('POST', '/trades/bulk', { account_id: apiAcc.id, trades: payload });
+      }
+
+      // Sync saques
+      if (localAcc.withdrawals) {
+        for (var key in localAcc.withdrawals) {
+          var parts = key.split('-');
+          var yr = parseInt(parts[0]);
+          var mn = parseInt(parts[1]);
+          var amt = localAcc.withdrawals[key];
+          if (amt > 0) {
+            await gpfxApiReq('POST', '/trades/withdrawal', { account_id: apiAcc.id, year: yr, month: mn, amount: amt });
+          }
+        }
+      }
+    }
+
+    showSync('Sincronizado ✓');
+  } catch(err) {
+    showSync('Erro: '+err.message, 'error');
+    console.error('Sync error:', err);
+  }
+}
+
+// Auto-sync quando save() for chamado
+var _originalSave = null;
+function hookSave() {
+  if (typeof save === 'function' && !_originalSave) {
+    _originalSave = save;
+    save = function() {
+      _originalSave();
+      if (gpfx_token) {
+        clearTimeout(window._syncDebounce);
+        window._syncDebounce = setTimeout(syncToAPI, 2000);
+      }
+    };
+  }
+}
+
+// Init: verificar token salvo
+(function() {
+  if (gpfx_token) {
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('syncStatus').classList.remove('hidden');
+    // Hook save depois que tudo carregou
+    window.addEventListener('load', function() {
+      hookSave();
+      syncToAPI();
+    });
+  } else {
+    window.addEventListener('load', function() { hookSave(); });
+  }
+})();
+</script>
+
 </body>
 </html>
