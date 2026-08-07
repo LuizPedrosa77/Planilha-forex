@@ -3,8 +3,9 @@ version: "3.8"
 services:
   planilha-forex:
     image: nginx:alpine
-    volumes:
-      - ./Planilha_Gustavo_Pedrosa_FX.html:/usr/share/nginx/html/index.html:ro
+    configs:
+      - source: planilha_html_v2
+        target: /usr/share/nginx/html/index.html
     networks:
       - traefik_public
     deploy:
@@ -20,6 +21,10 @@ services:
         - traefik.http.services.planilha-forex.loadbalancer.server.port=80
         - traefik.http.routers.planilha-forex.service=planilha-forex
         - traefik.http.routers.planilha-forex.tls.certresolver=le
+
+configs:
+  planilha_html_v2:
+    file: ./Planilha_Gustavo_Pedrosa_FX.html
 
 networks:
   traefik_public:
