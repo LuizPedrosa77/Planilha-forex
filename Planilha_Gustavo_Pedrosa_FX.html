@@ -3704,13 +3704,21 @@ async function autoSyncMT5TradesToJournal() {
       // Limpa símbolo (ex: tira .x)
       var pair = (t.symbol || 'Outro').replace(/\.x$/i, '');
 
-      // Verifica duplicata
-      var isDuplicate = acc.trades.some(function(existing) {
+      // Verifica se o trade já existe para atualizar (caso do lucro ser corrigido por fechamento parcial)
+      var existingTrade = acc.trades.find(function(existing) {
         if (existing.external_id && t.external_id && existing.external_id === t.external_id) return true;
         return existing.date === dateFormatted && existing.pair === pair && Math.abs(existing.pnl) === Math.abs(pnl);
       });
 
-      if (!isDuplicate) {
+      if (existingTrade) {
+        // Atualiza os valores caso tenham mudado
+        if (existingTrade.pnl !== Math.abs(pnl) || existingTrade.lots !== (t.lot_value || 0)) {
+          existingTrade.pnl = Math.abs(pnl);
+          existingTrade.result = result;
+          existingTrade.lots = t.lot_value || 0;
+          changed = true;
+        }
+      } else {
         acc.trades.push({
           id: uid(),
           external_id: t.external_id,

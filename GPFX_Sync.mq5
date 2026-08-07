@@ -54,7 +54,7 @@ void OnTimer()
    // Sempre revisita um pouco antes do ultimo sync, para pegar
    // operacoes que podem ter fechado "atrasadas" (garante margem
    // de seguranca contra falhas de rede pontuais).
-   datetime from = g_lastSyncTime - 3600; // 1h de margem
+   datetime from = g_lastSyncTime - 604800; // 7 dias de margem (captura fechamentos parciais de posições longas)
    if(from < 0) from = 0;
    SyncHistory(from);
 }
@@ -184,8 +184,8 @@ void SyncHistory(datetime fromTime)
       json += "\"symbol\":\"" + JsonEscape(posSymbol[k]) + "\",";
       json += "\"action\":\"" + (string)(posType[k] == DEAL_TYPE_BUY ? "Buy" : "Sell") + "\",";
       json += "\"volume\":" + DoubleToString(posVolume[k], 2) + ",";
-      json += "\"open_time\":\"" + TimeToIso(posOpenTime[k]) + "\",";
-      json += "\"close_time\":\"" + TimeToIso(posCloseTime[k]) + "\",";
+      json += "\"open_time\":" + (posOpenTime[k] == 0 ? "null" : "\"" + TimeToIso(posOpenTime[k]) + "\"") + ",";
+      json += "\"close_time\":" + (posCloseTime[k] == 0 ? "null" : "\"" + TimeToIso(posCloseTime[k]) + "\"") + ",";
       json += "\"open_price\":" + DoubleToString(posOpenPrice[k], 5) + ",";
       json += "\"close_price\":" + DoubleToString(posClosePrice[k], 5) + ",";
       json += "\"profit\":" + DoubleToString(posProfit[k], 2) + ",";
