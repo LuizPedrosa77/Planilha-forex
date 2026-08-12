@@ -781,6 +781,10 @@ function deleteAccount(i) {
   render();
 }
 
+
+
+
+
 function renderMain() {
   const acc = state.accounts[state.activeAccount];
   const year = state.activeYear;
@@ -2033,7 +2037,7 @@ var WEEKDAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 function openCalendarPanel() {
   var panel = document.getElementById('calendarPanel');
   panel.style.display = 'flex';
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   document.getElementById('calAccName').textContent = acc.name;
   calYear = state.activeYear;
   calMonth = state.activeMonth;
@@ -2066,7 +2070,7 @@ function calKpiBox(label, value, color) {
 }
 
 function calcTopAccountKpis() {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var trades = acc.trades.slice().sort(function(a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
 
   var totalPnl = 0, wins = 0, losses = 0, winSum = 0, lossSum = 0;
@@ -2146,7 +2150,7 @@ function renderCalTopKpis() {
 }
 
 function renderCalendar() {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   document.getElementById('calMonthLabel').textContent = MONTHS[calMonth] + ' ' + calYear;
   renderCalTopKpis();
 
@@ -2314,7 +2318,7 @@ function renderCalWeeklyCards(weeks) {
 }
 
 function calBuildEquityCurve(daysBack) {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var byDate = {};
   acc.trades.forEach(function(t) {
     if (!t.date) return;
@@ -2381,7 +2385,7 @@ function renderCalEquityCurve() {
 function calRenderRecentTrades() {
   var list = document.getElementById('calRecentTradesList');
   if (!list) return;
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var trades = acc.trades.filter(function(t) { return t.date; })
     .slice()
     .sort(function(a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; })
@@ -2476,7 +2480,7 @@ function calCloseDayModal() {
 
 function calRenderDaySummaryAndTrades() {
   if (!calCurrentDayDate) return;
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var dayTrades = acc.trades.filter(function(t) { return t.date === calCurrentDayDate; });
 
   var dayPnl = dayTrades.reduce(function(s, t) {
@@ -2658,7 +2662,7 @@ function anKpiBox(label, value, color, sub) {
 }
 
 function calcAnalyticsData() {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var trades = acc.trades.slice().sort(function(a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
 
   var pairMap = {};
@@ -2801,7 +2805,7 @@ function hmChangeYear(delta) {
 }
 
 function renderHeatmap() {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   document.getElementById('hmYearLabel').textContent = String(hmYear);
 
   var start = new Date(hmYear, 0, 1);
@@ -2868,7 +2872,7 @@ function ymKeyNow() {
 }
 
 function renderMetas() {
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   if (!acc.monthlyGoals) acc.monthlyGoals = {};
   var ymKey = ymKeyNow();
   var goal = acc.monthlyGoals[ymKey] || 0;
@@ -3092,7 +3096,7 @@ var currentChartTab = 'overview';
 function openChartPanel() {
   var panel = document.getElementById('chartPanel');
   panel.style.display = 'flex';
-  var acc = state.accounts[state.activeAccount];
+  var acc = getActiveAnalysisAccount();
   var fixedYears = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
   var sel = document.getElementById('chartYearFilter');
   sel.innerHTML = '<option value="all">Todos os anos</option>'
@@ -3806,5 +3810,70 @@ function hookSave() {
 })();
 </script>
 
+
+<div id="globalAccountSelectorContainer" style="display:none;position:fixed;bottom:30px;right:30px;z-index:9999;background:#1e293b;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 10px 25px rgba(0,0,0,0.5);align-items:center;gap:12px;">
+  <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">🎯 Análise de:</span>
+  <select id="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 12px;border-radius:8px;font-size:14px;font-weight:700;outline:none;cursor:pointer;"></select>
+</div>
+
+<script>
+function getActiveAnalysisAccount() {
+  if (state.globalAccountMode === 'all') {
+    var allTrades = [];
+    var initialBalance = 0;
+    var allWithdrawals = {};
+    var allDeposits = {};
+    state.accounts.forEach(function(a) {
+      if (a.trades) allTrades = allTrades.concat(a.trades);
+      initialBalance += (a.balance || 0);
+      if (a.withdrawals) {
+        Object.keys(a.withdrawals).forEach(function(k) {
+          allWithdrawals[k] = (allWithdrawals[k] || 0) + a.withdrawals[k];
+        });
+      }
+      if (a.deposits) {
+        Object.keys(a.deposits).forEach(function(k) {
+          allDeposits[k] = (allDeposits[k] || 0) + a.deposits[k];
+        });
+      }
+    });
+    return {
+      name: "Todas as contas conectadas",
+      balance: initialBalance,
+      trades: allTrades,
+      withdrawals: allWithdrawals,
+      deposits: allDeposits,
+      meta: state.accounts[0] ? state.accounts[0].meta : 0
+    };
+  }
+  var idx = state.globalAccountMode !== undefined ? state.globalAccountMode : state.activeAccount;
+  if (!state.accounts[idx]) idx = state.activeAccount;
+  return state.accounts[idx];
+}
+
+function switchGlobalAccountMode(mode) {
+  state.globalAccountMode = mode;
+  save();
+  var accName = getActiveAnalysisAccount().name;
+  if (document.getElementById('calendarPanel').style.display === 'flex') { document.getElementById('calAccName').textContent = accName; renderCalendar(); }
+  else if (document.getElementById('chartPanel').style.display === 'flex') { document.getElementById('chartAccName').textContent = accName; updateChartData(); }
+  else if (document.getElementById('heatmapPanel').style.display === 'flex') { document.getElementById('heatmapAccName').textContent = accName; renderHeatmap(); }
+  else if (document.getElementById('analisesPanel').style.display === 'flex') { document.getElementById('analisesAccName').textContent = accName; renderAnalises(); }
+  updateGlobalAccountSelector();
+}
+
+function updateGlobalAccountSelector() {
+  var sel = document.getElementById('globalAccountSelector');
+  if (!sel) return;
+  var html = '<option value="all">🌐 Todas as contas conectadas</option>';
+  state.accounts.forEach(function(a, i) {
+    html += '<option value="' + i + '">👤 ' + escHtml(a.name) + '</option>';
+  });
+  sel.innerHTML = html;
+  var mode = state.globalAccountMode !== undefined ? state.globalAccountMode : state.activeAccount;
+  sel.value = mode;
+}
+</script>
 </body>
+
 </html>
