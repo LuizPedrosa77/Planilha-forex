@@ -1742,6 +1742,7 @@ if (_navDiario) _navDiario.classList.add('active');
 <div id="analisesPanel" class="app-page-panel" style="display:none;position:fixed;top:0;right:0;bottom:0;background:#0f172a;z-index:500;overflow-y:auto;flex-direction:column;">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e293b;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px;">
     <span style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.5px;">📊 Análises</span>
+      <select class="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:600;outline:none;cursor:pointer;"></select>
     <button onclick="closeAnalisesPanel()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#94a3b8;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;">✕ Fechar</button>
   </div>
   <div style="padding:20px 28px 32px;display:flex;flex-direction:column;gap:26px;">
@@ -1767,6 +1768,7 @@ if (_navDiario) _navDiario.classList.add('active');
 <div id="heatmapPanel" class="app-page-panel" style="display:none;position:fixed;top:0;right:0;bottom:0;background:#0f172a;z-index:500;overflow-y:auto;flex-direction:column;">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e293b;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px;">
     <span style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.5px;">🔥 Heatmap Anual</span>
+      <select class="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:600;outline:none;cursor:pointer;"></select>
     <div style="display:flex;align-items:center;gap:10px;">
       <div style="display:flex;align-items:center;gap:8px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:4px 6px;">
         <button onclick="hmChangeYear(-1)" style="background:transparent;border:none;color:#94a3b8;font-size:16px;font-weight:700;cursor:pointer;padding:4px 8px;">‹</button>
@@ -1898,7 +1900,7 @@ if (_navDiario) _navDiario.classList.add('active');
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e293b;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px;">
     <div style="display:flex;align-items:center;gap:14px;">
       <span style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.5px;">📅 Calendário</span>
-      <span id="calAccName" style="font-size:12px;color:#94a3b8;background:rgba(255,255,255,0.07);padding:3px 12px;border-radius:20px;"></span>
+      <select class="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:600;outline:none;cursor:pointer;"></select>
     </div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div style="display:flex;align-items:center;gap:8px;background:#0f172a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:4px 6px;">
@@ -1978,7 +1980,7 @@ if (_navDiario) _navDiario.classList.add('active');
   <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e293b;position:sticky;top:0;z-index:10;">
     <div style="display:flex;align-items:center;gap:14px;">
       <span style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.5px;">📈 Evolução da Conta</span>
-      <span id="chartAccName" style="font-size:12px;color:#94a3b8;background:rgba(255,255,255,0.07);padding:3px 12px;border-radius:20px;"></span>
+      <select class="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 10px;border-radius:6px;font-size:13px;font-weight:600;outline:none;cursor:pointer;"></select>
     </div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div style="display:flex;background:#0f172a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden;">
@@ -2038,7 +2040,7 @@ function openCalendarPanel() {
   var panel = document.getElementById('calendarPanel');
   panel.style.display = 'flex';
   var acc = getActiveAnalysisAccount();
-  document.getElementById('calAccName').textContent = acc.name;
+  
   calYear = state.activeYear;
   calMonth = state.activeMonth;
   renderCalendar();
@@ -2622,14 +2624,8 @@ function closeSidebarMobile() {
 }
 
 function navGoTo(view) {
-  var globalSelector = document.getElementById('globalAccountSelectorContainer');
   if (['calendario', 'evolucao', 'analises', 'heatmap'].includes(view)) {
-    if (globalSelector) {
-       globalSelector.style.display = 'flex';
-       updateGlobalAccountSelector();
-    }
-  } else {
-    if (globalSelector) globalSelector.style.display = 'none';
+    updateGlobalAccountSelector();
   }
   document.querySelectorAll('.sb-item').forEach(function(el) { el.classList.remove('active'); });
   var btn = document.getElementById('nav-' + view);
@@ -3112,7 +3108,7 @@ function openChartPanel() {
     + fixedYears.map(function(y) { return '<option value="' + y + '">' + y + '</option>'; }).join('');
   if (fixedYears.indexOf(state.activeYear) !== -1) sel.value = state.activeYear;
   else sel.value = state.activeYear;
-  document.getElementById('chartAccName').textContent = acc.name;
+  
   switchChartTab('overview');
 }
 
@@ -3820,10 +3816,7 @@ function hookSave() {
 </script>
 
 
-<div id="globalAccountSelectorContainer" style="display:none;position:fixed;bottom:30px;right:30px;z-index:9999;background:#1e293b;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 10px 25px rgba(0,0,0,0.5);align-items:center;gap:12px;">
-  <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">🎯 Análise de:</span>
-  <select id="globalAccountSelector" onchange="switchGlobalAccountMode(this.value)" style="background:#0f172a;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 12px;border-radius:8px;font-size:14px;font-weight:700;outline:none;cursor:pointer;"></select>
-</div>
+
 
 <script>
 function getActiveAnalysisAccount() {
@@ -3863,24 +3856,25 @@ function getActiveAnalysisAccount() {
 function switchGlobalAccountMode(mode) {
   state.globalAccountMode = mode;
   save();
-  var accName = getActiveAnalysisAccount().name;
-  if (document.getElementById('calendarPanel').style.display === 'flex') { document.getElementById('calAccName').textContent = accName; renderCalendar(); }
-  else if (document.getElementById('chartPanel').style.display === 'flex') { document.getElementById('chartAccName').textContent = accName; updateChartData(); }
-  else if (document.getElementById('heatmapPanel').style.display === 'flex') { document.getElementById('heatmapAccName').textContent = accName; renderHeatmap(); }
-  else if (document.getElementById('analisesPanel').style.display === 'flex') { document.getElementById('analisesAccName').textContent = accName; renderAnalises(); }
+  if (document.getElementById('calendarPanel').style.display === 'flex') { renderCalendar(); }
+  else if (document.getElementById('chartPanel').style.display === 'flex') { updateChartData(); }
+  else if (document.getElementById('heatmapPanel').style.display === 'flex') { renderHeatmap(); }
+  else if (document.getElementById('analisesPanel').style.display === 'flex') { renderAnalises(); }
   updateGlobalAccountSelector();
 }
 
 function updateGlobalAccountSelector() {
-  var sel = document.getElementById('globalAccountSelector');
-  if (!sel) return;
+  var sels = document.querySelectorAll('.globalAccountSelector');
+  if (!sels.length) return;
   var html = '<option value="all">🌐 Todas as contas conectadas</option>';
   state.accounts.forEach(function(a, i) {
     html += '<option value="' + i + '">👤 ' + escHtml(a.name) + '</option>';
   });
-  sel.innerHTML = html;
   var mode = state.globalAccountMode !== undefined ? state.globalAccountMode : state.activeAccount;
-  sel.value = mode;
+  sels.forEach(function(sel) {
+    sel.innerHTML = html;
+    sel.value = mode;
+  });
 }
 </script>
 </body>
