@@ -2622,6 +2622,15 @@ function closeSidebarMobile() {
 }
 
 function navGoTo(view) {
+  var globalSelector = document.getElementById('globalAccountSelectorContainer');
+  if (['calendario', 'evolucao', 'analises', 'heatmap'].includes(view)) {
+    if (globalSelector) {
+       globalSelector.style.display = 'flex';
+       updateGlobalAccountSelector();
+    }
+  } else {
+    if (globalSelector) globalSelector.style.display = 'none';
+  }
   document.querySelectorAll('.sb-item').forEach(function(el) { el.classList.remove('active'); });
   var btn = document.getElementById('nav-' + view);
   if (btn) btn.classList.add('active');

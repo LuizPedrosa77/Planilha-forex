@@ -4,7 +4,7 @@ services:
   planilha-forex:
     image: nginx:alpine
     configs:
-      - source: planilha_html_v3
+      - source: planilha_html_v4
         target: /usr/share/nginx/html/index.html
     networks:
       - traefik_public
@@ -23,7 +23,7 @@ services:
         - traefik.http.routers.planilha-forex.tls.certresolver=le
 
 configs:
-  planilha_html_v3:
+  planilha_html_v4:
     file: ./Planilha_Gustavo_Pedrosa_FX.html
 
 networks:
